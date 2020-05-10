@@ -1,6 +1,6 @@
 {
     "name": "iggyvolz/virtual-attributes",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Fall-forward for PHP8 attributes",
     "type": "library",
     "license": "MIT",

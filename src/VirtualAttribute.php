@@ -50,8 +50,6 @@ class VirtualAttribute
         self::$attributes[$id][] = new ReflectionAttribute($this, $this->args);
     }
 
-    public const IS_INSTANCEOF = 1;
-
     /**
      * @return ReflectionAttribute[]
      */
@@ -60,10 +58,10 @@ class VirtualAttribute
         $attributes = self::$attributes[self::getReflectorID($reflector)] ?? [];
         if(is_null($class)) {
             return $attributes;
-        } elseif($flags & self::IS_INSTANCEOF) {
-            return array_filter($attributes, fn(self $self):bool => $self instanceof $class);
+        } elseif($flags & ReflectionAttribute::IS_INSTANCEOF) {
+            return array_values(array_filter($attributes, fn(ReflectionAttribute $self):bool => ($self->newInstance()) instanceof $class));
         } else {
-            return array_filter($attributes, fn(self $self):bool => get_class($self) === $class);
+            return array_values(array_filter($attributes, fn(ReflectionAttribute $self):bool => $self->getName() === $class));
         }
     }
 

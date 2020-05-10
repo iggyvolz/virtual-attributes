@@ -6,6 +6,8 @@ namespace iggyvolz\virtualattributes;
 
 class ReflectionAttribute
 {
+    public const IS_INSTANCEOF = 1;
+
     private VirtualAttribute $object;
     private array $args;
 

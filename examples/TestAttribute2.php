@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace iggyvolz\virtualattributes\examples;
 
-use iggyvolz\virtualattributes\VirtualAttribute;
-
-class TestAttribute2 extends VirtualAttribute
+class TestAttribute2 extends TestAbstractAttribute
 {
     public int $a;
     public string $b;

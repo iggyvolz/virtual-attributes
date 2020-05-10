@@ -3,6 +3,7 @@
 namespace iggyvolz\virtualattributes\tests;
 
 use iggyvolz\virtualattributes\examples\ClassWithAttribute;
+use iggyvolz\virtualattributes\examples\TestAbstractAttribute;
 use iggyvolz\virtualattributes\examples\TestAttribute;
 use iggyvolz\virtualattributes\examples\TestAttribute2;
 use iggyvolz\virtualattributes\ReflectionAttribute;
@@ -105,6 +106,25 @@ class VirtualAttributeTest extends TestCase
         $this->expectDeprecation();
         $this->expectDeprecationMessage("Use Attributes in PHP 8: use <<iggyvolz\\virtualattributes\\examples\\TestAttribute(7, 'yak')>>");
         new TestAttribute(7, "yak");
+    }
+
+    public function testTypeCheckingExact():void
+    {
+        $attributes = VirtualAttribute::getAttributes(new ReflectionMethod(ClassWithAttribute::class, "MethodWithMultipleAttributes"), TestAttribute2::class);
+        $this->assertList(1, $attributes);
+        $this->assertInstanceOf(TestAttribute2::class, $attributes[0]->newInstance());
+        $attributes = VirtualAttribute::getAttributes(new ReflectionMethod(ClassWithAttribute::class, "MethodWithMultipleAttributes"), TestAbstractAttribute::class);
+        $this->assertList(0, $attributes);
+    }
+
+    public function testTypeCheckingFuzzy():void
+    {
+        $attributes = VirtualAttribute::getAttributes(new ReflectionMethod(ClassWithAttribute::class, "MethodWithMultipleAttributes"), TestAttribute2::class, ReflectionAttribute::IS_INSTANCEOF);
+        $this->assertList(1, $attributes);
+        $this->assertInstanceOf(TestAttribute2::class, $attributes[0]->newInstance());
+        $attributes = VirtualAttribute::getAttributes(new ReflectionMethod(ClassWithAttribute::class, "MethodWithMultipleAttributes"), TestAbstractAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+        $this->assertList(1, $attributes);
+        $this->assertInstanceOf(TestAttribute2::class, $attributes[0]->newInstance());
     }
 
     private function assertList(int $length, $arr):void
