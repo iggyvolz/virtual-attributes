@@ -1,0 +1,27 @@
+{
+    "name": "iggyvolz/virtual-attributes",
+    "version": "0.1",
+    "description": "Fall-forward for PHP8 attributes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Katie Volz",
+            "email": "iggyvolz@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "iggyvolz\\virtualattributes\\": "src/",
+            "iggyvolz\\virtualattributes\\examples\\": "examples/",
+            "iggyvolz\\virtualattributes\\tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit tests"
+    }
+}
