@@ -1,4 +1,5 @@
 {
+    "abandoned": "https://www.php.net/attributes",
     "name": "iggyvolz/virtual-attributes",
     "version": "0.2",
     "description": "Fall-forward for PHP8 attributes",
